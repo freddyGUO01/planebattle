@@ -1,0 +1,15 @@
+{
+  "excludeScenes": [
+    "286a2a3f-1bff-46ee-8ac6-17e61ee8d69b"
+  ],
+  "orientation": {
+    "landscapeLeft": true,
+    "landscapeRight": true,
+    "portrait": false,
+    "upsideDown": false
+  },
+  "packageName": "org.cocos2d.planebattle",
+  "startScene": "ca818d8e-8a6e-41d1-8b6b-c20540d70336",
+  "title": "planebattle",
+  "webOrientation": "auto"
+}
