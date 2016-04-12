@@ -13,6 +13,10 @@ cc.Class({
         // ...
         act: cc.Animation
     },
+    
+    boom: function() {
+        //this.act.play('boom') ;
+    },
 
     // use this for initialization
     onLoad: function () {
