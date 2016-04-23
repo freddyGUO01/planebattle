@@ -11,5 +11,5 @@
   "packageName": "org.cocos2d.planebattle",
   "startScene": "ca818d8e-8a6e-41d1-8b6b-c20540d70336",
   "title": "planebattle",
-  "webOrientation": "auto"
+  "webOrientation": "portrait"
 }
