@@ -1,19 +1,23 @@
 {
   "__type__": "cc.AnimationClip",
-  "_name": "enemy-fly",
+  "_name": "boss_fly",
   "_objFlags": 0,
   "_duration": 0.13333333333333333,
   "sample": 60,
   "speed": 1,
   "wrapMode": 2,
   "curveData": {
-    "comps": {
-      "cc.Sprite": {}
+    "props": {
+      "rotation": []
     },
     "paths": {
-      "enemy_flg": {
+      "boss_fly": {
         "props": {
           "rotation": [
+            {
+              "frame": 0,
+              "value": 0
+            },
             {
               "frame": 0.03333333333333333,
               "value": 30

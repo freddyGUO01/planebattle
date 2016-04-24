@@ -86,7 +86,8 @@ cc.Class({
         
         var _go = cc.moveTo(this.speed, cc.p(_conv.x, -(this.size.height/2+(this.enemy.height*this.enemy.scaleY/2)))) ;
         
-        _enemy.runAction(cc.sequence(_go, cc.removeSelf()));
+        var self = this ;
+        _enemy.runAction(cc.sequence(_go, cc.callFunc(function(){ cc.js.array.remove(self.enemyArr, _enemy); }), cc.removeSelf()));
         
         //cc.log('canvas child count : ' +this.node.childrenCount);
     } ,

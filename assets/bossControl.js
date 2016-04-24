@@ -17,7 +17,7 @@ cc.Class({
     },
     
     fly: function() {
-        this.act.play('enemy-fly') ;
+        this.act.play('boss-fly') ;
     },
 
     // use this for initialization

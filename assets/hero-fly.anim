@@ -8,45 +8,56 @@
   "wrapMode": 2,
   "curveData": {
     "comps": {
-      "cc.Sprite": {
-        "spriteFrame": [
-          {
-            "frame": 0,
-            "value": {
-              "__uuid__": "330f6513-2979-450f-80d3-9cf721e10d1b"
+      "cc.Sprite": {}
+    },
+    "paths": {
+      "hero_flg": {
+        "props": {
+          "rotation": [
+            {
+              "frame": 0.03333333333333333,
+              "value": 30
+            },
+            {
+              "frame": 0.06666666666666667,
+              "value": 60
+            },
+            {
+              "frame": 0.1,
+              "value": 120
+            },
+            {
+              "frame": 0.13333333333333333,
+              "value": 160
             }
-          },
-          {
-            "frame": 0.03333333333333333,
-            "value": {
-              "__uuid__": "90818a80-263b-408b-9601-705134f0463c"
-            }
-          },
-          {
-            "frame": 0.06666666666666667,
-            "value": {
-              "__uuid__": "952f92c8-fe58-4011-9060-b0b67c0509f7"
-            }
-          },
-          {
-            "frame": 0.1,
-            "value": {
-              "__uuid__": "686ae460-5c40-458c-9584-59d13a15cc8d"
-            }
-          },
-          {
-            "frame": 0.13333333333333333,
-            "value": {
-              "__uuid__": "5ad5182f-cc00-4cea-8dfc-0e3187a22486"
-            }
-          }
-        ]
+          ]
+        }
       }
     }
   },
   "events": [
     {
-      "frame": 0.15,
+      "frame": 0,
+      "func": "",
+      "params": []
+    },
+    {
+      "frame": 0.03333333333333333,
+      "func": "",
+      "params": []
+    },
+    {
+      "frame": 0.06666666666666667,
+      "func": "",
+      "params": []
+    },
+    {
+      "frame": 0.1,
+      "func": "",
+      "params": []
+    },
+    {
+      "frame": 0.13333333333333333,
       "func": "",
       "params": []
     }
