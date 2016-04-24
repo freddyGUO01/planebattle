@@ -78,6 +78,9 @@
       },
       {
         "__id__": 7
+      },
+      {
+        "__id__": 13
       }
     ],
     "_rotationX": 0,
@@ -100,10 +103,10 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 13
+        "__id__": 15
       },
       {
-        "__id__": 14
+        "__id__": 16
       }
     ],
     "_prefab": null
@@ -172,7 +175,6 @@
       "__uuid__": "8688ead9-062d-4171-b8ec-5e605f5f7cdc"
     },
     "_type": 0,
-    "_useOriginalSize": true,
     "_sizeMode": 1,
     "_fillType": 0,
     "_fillCenter": {
@@ -398,7 +400,6 @@
       "__uuid__": "f0048c10-f03e-4c97-b9d3-3506e1d58952"
     },
     "_type": 1,
-    "_useOriginalSize": false,
     "_sizeMode": 0,
     "_fillType": 0,
     "_fillCenter": {
@@ -482,6 +483,76 @@
     "handler": "onStartClick"
   },
   {
+    "__type__": "cc.Node",
+    "_name": "loading",
+    "_objFlags": 0,
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 92,
+      "b": 0,
+      "a": 255
+    },
+    "_cascadeOpacityEnabled": true,
+    "_parent": {
+      "__id__": 2
+    },
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0.5,
+      "y": 0.5
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 140.12,
+      "height": 40
+    },
+    "_children": [],
+    "_rotationX": 0,
+    "_rotationY": 0,
+    "_scaleX": 1,
+    "_scaleY": 1,
+    "_position": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "_localZOrder": 0,
+    "_globalZOrder": 0,
+    "_tag": -1,
+    "_opacityModifyRGB": false,
+    "_reorderChildDirty": false,
+    "_id": "63366Mn5y1DmIiecsk1zohn",
+    "_active": true,
+    "_components": [
+      {
+        "__id__": 14
+      }
+    ],
+    "_prefab": null
+  },
+  {
+    "__type__": "cc.Label",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 13
+    },
+    "_enabled": true,
+    "_useOriginalSize": false,
+    "_fontSize": 40,
+    "_lineHeight": 40,
+    "_enableWrapText": true,
+    "_isSystemFontUsed": true,
+    "_N$string": "loading.",
+    "_N$horizontalAlign": 1,
+    "_N$verticalAlign": 1,
+    "_N$overflow": 0
+  },
+  {
     "__type__": "cc.Canvas",
     "_name": "",
     "_objFlags": 1835008,
@@ -507,6 +578,9 @@
     "_enabled": true,
     "btn": {
       "__id__": 11
+    },
+    "loading": {
+      "__id__": 13
     }
   }
 ]
