@@ -31,8 +31,22 @@ cc.Class({
             default: null,
             type: cc.Node
         },
+        scoreOverLabel:{
+            default: null,
+            type: cc.Node
+        },
+        gameReloadBtn:{
+            default: null,
+            type: cc.Node
+        },
+        gameReloadLabel:{
+            default: null,
+            type: cc.Node
+        },
         size : null ,
         speed: 3 ,
+        planeSpeed: 100,  //飞机行驶速度
+        bulletSpeed: 500, //子弹行驶速度
         spCreateEnemy: 2 ,
         spCreateBullet: 0.5 ,
         spCreateBossBullet: 1 ,
@@ -108,9 +122,16 @@ cc.Class({
             _conv.x = this.heroBoundRight ;
         }
         
-        _enemy.setPosition(_conv.x, this.size.height/2);
+        var startPosY = this.size.height/2;
+        _enemy.setPosition(_conv.x, startPosY);
         
-        var _go = cc.moveTo(this.speed, cc.p(_conv.x, -(this.size.height/2+(this.enemy.height*this.enemy.scaleY/2)))) ;
+        var disPosY = -(this.size.height/2+(this.enemy.height*this.enemy.scaleY/2)) ;
+        
+        var distance = Math.abs(disPosY - startPosY) ;  // 距离
+        var duration = distance / this.planeSpeed ;
+        
+        
+        var _go = cc.moveTo(duration, cc.p(_conv.x, disPosY)) ;
         
         var self = this ;
         _enemy.runAction(cc.sequence(_go, cc.callFunc(function(){ cc.js.array.remove(self.enemyArr, _enemy); }), cc.removeSelf()));
@@ -129,11 +150,20 @@ cc.Class({
         
         this.node.addChild(_bullet);
         
-        _bullet.setPosition(cpos.x, cpos.y);
+        var startPosY = cpos.y;
+        
+        _bullet.setPosition(cpos.x, startPosY);
         _bullet.setLocalZOrder (1);
         
+        var disPosY =  this.size.height/2+(this.bullet.height*this.bullet.scaleY/2) ;
+        
+        var distance = Math.abs(disPosY - startPosY) ;  // 距离
+        var duration = distance / this.bulletSpeed ;     // 时间 T = 距离 / 速度
+        
+        cc.log(duration)
+        
         // 当子弹超出屏幕，从数组移除，并且从当前场景清除
-        var _go = cc.moveTo(this.speed, cc.p(cpos.x, (this.size.height/2+(this.bullet.height*this.bullet.scaleY/2)))) ; 
+        var _go = cc.moveTo(duration, cc.p(cpos.x, disPosY)) ; 
         _bullet.runAction(cc.sequence(_go, cc.callFunc(this.removeBulletFromArr.bind(this), _bullet), cc.removeSelf()));   
         
         // 也可以这样使用
@@ -159,10 +189,17 @@ cc.Class({
             
             this.node.addChild(_bullet);
             
-            _bullet.setPosition(cpos.x, cpos.y);
+            var startPosY = cpos.y;
+            
+            _bullet.setPosition(cpos.x, startPosY);
             _bullet.setLocalZOrder (1);
             
-            var _go = cc.moveTo(this.speed, cc.p(cpos.x, (this.size.height/2+(this.bullet.height*this.bullet.scaleY/2)) * -1 )) ;
+            var disPosY = (this.size.height/2+(this.bullet.height*this.bullet.scaleY/2)) * -1 ;
+            
+            var distance = Math.abs(disPosY - startPosY) ;  // 距离
+            var duration = distance / this.bulletSpeed ;     // 时间 T = 距离 / 速度 
+            
+            var _go = cc.moveTo(duration, cc.p(cpos.x, disPosY)) ;
             
             //var self = this ;
             _bullet.runAction(cc.sequence(_go, cc.callFunc(this.removeBossBulletFromArr.bind(this), _bullet), cc.removeSelf()));    
@@ -215,16 +252,35 @@ cc.Class({
         var boss_back = cc.moveTo(6, cc.p(boss_xf*-1, _boss_y)) ;
         _boss.runAction(cc.repeatForever(cc.sequence(boss_go, boss_back)));
     },
+    
+    // open true/false
+    adminReloadRes(open){
+        if(!open){
+            this.gameReloadBtn.width = 0;
+            this.gameReloadLabel.getComponent(cc.Label).enabled = false;
+            this.scoreOverLabel.getComponent(cc.Label).enabled = false;
+        }else{
+            this.gameReloadBtn.width = 100;
+            this.gameReloadLabel.getComponent(cc.Label).enabled = true;
+            this.scoreOverLabel.getComponent(cc.Label).enabled = true;
+        }
+    },
+    
+    onGameOver(){
+        this.unscheduleAllCallbacks();  // 停止所有创建物体
+        this.scoreOverLabel.getComponent(cc.Label).string = "score "+this.score ;
+        this.adminReloadRes(true) ;
+    },
 
     // use this for initialization
     onLoad: function () {
         var scene = cc.director.getScene();
         this.size = cc.director.getVisibleSize();
         
+        this.adminReloadRes(false) ;
+        
         this.heroBoundLeft  = (this.size.width / 2 - this.hero.width * this.hero.scaleX / 2 ) * -1 ;
         this.heroBoundRight = this.size.width / 2 - this.hero.width * this.hero.scaleX / 2 ;
-        
-        
         
         var self = this;
         
@@ -260,6 +316,9 @@ cc.Class({
         
     },
     
+    onRestartClick: function() {
+        cc.director.loadScene('battle');
+    },
 
     // called every frame, uncomment this function to activate update callback
     update: function (dt) {
@@ -299,7 +358,7 @@ cc.Class({
                         _boom.runAction(cc.sequence(cc.delayTime(0.5), cc.removeSelf()));
                         _boom2.runAction(cc.sequence(cc.delayTime(0.5), cc.removeSelf()));
                         
-                        this.unscheduleAllCallbacks ( );  // 停止所有创建物体
+                        this.onGameOver();  // 停止所有创建物体
                         continue ; // 当前检测的敌机已经销毁
                     }
                 }catch(e){
@@ -442,7 +501,7 @@ cc.Class({
                         this.hero.runAction(cc.sequence(cc.delayTime(0.5), cc.removeSelf())) ;
                         _boom.runAction(cc.sequence(cc.delayTime(0.5), cc.removeSelf()));
                         
-                        this.unscheduleAllCallbacks();  // 停止所有创建物体
+                        this.onGameOver();  // 停止所有创建物体
                         break ; // 游戏结束
                     }
                 }catch(e){
